@@ -7,9 +7,21 @@ const AddUser = () => {
 
     const handleAddUser = (e) => {
         e.preventDefault();
-        const form = e.target;
-        const name = form.name.value;
-        const email = form.email.value;
+
+        fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.acknowledged) {
+                    alert('User Added Successfully')
+                    e.target.reset()
+                }
+            })
     }
     const handleInputBlur = (e) => {
         const value = e.target.value;
